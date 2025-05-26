@@ -1,0 +1,121 @@
+#%RAML 1.0
+title: API Contraventions Alimentaires
+version: v1
+baseUri: http://localhost:5000
+mediaType: application/json
+
+types:
+  Contravention:
+    type: object
+    properties:
+      id_poursuite: integer
+      business_id: integer
+      date: date-only
+      description: string
+      adresse: string
+      date_jugement: date-only
+      etablissement: string
+      montant: number
+      proprietaire: string
+      ville: string
+      statut: string
+      date_statut: date-only
+      categorie: string
+
+  StatistiquesItem:
+    type: object
+    properties:
+      etablissement: string
+      nb: integer
+
+/contrevenants:
+  get:
+    description: Récupère les contraventions émises entre deux dates (ISO 8601).
+    queryParameters:
+      du:
+        type: date-only
+        required: true
+        description: Date de début (YYYY‑MM‑DD)
+      au:
+        type: date-only
+        required: true
+        description: Date de fin (YYYY‑MM‑DD)
+    responses:
+      200:
+        body:
+          application/json:
+            type: Contravention[]
+      400:
+        description: Paramètre(s) manquant(s) ou invalide(s)
+      500:
+        description: Erreur interne du serveur
+
+/etablissements:
+  get:
+    description: Renvoie la liste de tous les établissements (sans doublons).
+    responses:
+      200:
+        body:
+          application/json:
+            type: string[]
+
+/infractions:
+  get:
+    description: Liste les infractions pour un établissement donné (nom exact).
+    queryParameters:
+      etablissement:
+        type: string
+        required: true
+        description: Nom exact de l’établissement
+    responses:
+      200:
+        body:
+          application/json:
+            type: Contravention[]
+      400:
+        description: Paramètre manquant
+
+/statistiques:
+  get:
+    description: Nombre de contraventions par établissement, trié par ordre décroissant.
+    responses:
+      200:
+        body:
+          application/json:
+            type: StatistiquesItem[]
+
+/statistiques/xml:
+  get:
+    description: Même liste que /statistiques, mais au format XML (UTF‑8).
+
+/statistiques/csv:
+  get:
+    description: Même liste que /statistiques, mais au format CSV (UTF‑8, séparateur `;`).
+
+/api/utilisateurs:
+  post:
+    description: Création d’un profil utilisateur (validé par JSON Schema).
+    body:
+      application/json:
+        type: object
+        properties:
+          username:
+            type: string
+            description: Identifiant choisi
+          password:
+            type: string
+            description: Mot de passe en clair
+          nom:
+            type: string
+            description: Nom de famille
+          prenom:
+            type: string
+            description: Prénom
+        required: [username, password, nom, prenom]
+    responses:
+      201:
+        description: Utilisateur créé avec succès
+      400:
+        description: JSON invalide ou champs manquants
+      500:
+        description: Erreur interne du serveur

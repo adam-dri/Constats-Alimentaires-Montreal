@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block content %}
+<div class="carte">
+  <h2 class="resultats-titre">Créer un compte</h2>
+  
+  {% if message %}
+    <p style="color: {{ couleur }}; font-weight: 500;">{{ message }}</p>
+  {% endif %}
+
+  <form id="form-inscription" class="formulaire" method="POST">
+
+    <div class="groupe-input">
+        <label class="label">Nom</label>
+        <input type="text" class="input" name="nom" required>
+      </div>
+  
+      <div class="groupe-input">
+        <label class="label">Prénom</label>
+        <input type="text" class="input" name="prenom" required>
+      </div>
+
+    <div class="groupe-input">
+      <label class="label">Nom d'utilisateur</label>
+      <input type="text" class="input" name="nom_utilisateur" required>
+    </div>
+
+    <div class="groupe-input">
+      <label class="label">Mot de passe</label>
+      <input type="password" class="input" name="mot_de_passe" required>
+    </div>
+
+    <button type="submit" class="bouton">Créer le compte</button>
+
+  </form>
+
+  <div id="message" style="margin-top: 1rem;"></div>
+</div>
+
+<script src="{{ url_for('static', filename='js/validations.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}Établissements surveillés{% endblock %}
+
+{% block content %}
+<h2>Modifier mes établissements surveillés</h2>
+
+{% if message %}
+  <p style="color: {{ couleur }}">{{ message }}</p>
+{% endif %}
+
+
+<h3>Rechercher un établissement</h3>
+<form id="formulaire-recherche" onsubmit="rechercherEtablissements(event)">
+  <label for="champ-recherche">Nom de l’établissement :</label><br>
+  <input type="text" id="champ-recherche" name="entree">
+  <button type="submit">Rechercher</button>
+</form>
+
+<ul id="liste-resultats"></ul>
+
+<h3>Établissements sélectionnés</h3>
+<form method="POST">
+  <input type="hidden" name="etablissements" id="champs-selection">
+  <ul id="liste-selection"></ul>
+  <button type="submit">Enregistrer</button>
+</form>
+
+
+{% if etablissements_affiches %}
+  <hr>
+  <h3>Établissements actuellement surveillés :</h3>
+  <ul>
+    {% for e in etablissements_affiches %}
+      <li>{{ e }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p><em>Aucun établissement surveillé pour le moment.</em></p>
+{% endif %}
+
+<script src="{{ url_for('static', filename='js/validations.js') }}"></script>
+{% endblock %}

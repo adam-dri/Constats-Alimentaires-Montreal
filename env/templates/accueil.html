@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}Recherche de contraventions{% endblock %}
+
+{% block content %}
+<div class="carte">
+    <h2 class="resultats-titre">Recherche de contraventions</h2>
+    <p>Veuillez saisir un ou plusieurs critères de recherche :</p>
+    
+    <form method="POST" action="{{ url_for('resultats_recherche') }}" class="formulaire" onsubmit="return validerFormulaire();">
+        <div class="groupe-input">
+            <label class="label">Nom de l'établissement</label>
+            <input type="text" class="input" name="etablissement" placeholder="Ex: TIM HORTONS">
+        </div>
+
+        <div class="groupe-input">
+            <label class="label">Propriétaire</label>
+            <input type="text" class="input" name="proprietaire" placeholder="Ex: ... QUEBEC INC.">
+        </div>
+
+        <div class="groupe-input">
+            <label class="label">Rue</label>
+            <input type="text" class="input" name="rue" placeholder="Ex: Rue Jean-Talon Est">
+        </div>
+
+        <button type="submit" class="bouton">Rechercher</button>
+    </form>
+</div>
+  <div class="carte">
+    <h2 class="resultats-titre">Recherche rapide par dates</h2>
+    <div class="groupe-input">
+      <label class="label">Du</label>
+      <input type="date" class="input" id="date-debut" max="{{ today }}">
+    </div>
+    <div class="groupe-input">
+      <label class="label">Au</label>
+      <input type="date" class="input" id="date-fin" max="{{ today }}">
+    </div>
+    <button type="button" class="bouton" onclick="rechercheDates()">
+      Rechercher
+    </button>
+    <div id="resultats-dates" style="margin-top:2rem;"></div>
+  </div>
+
+ <div class="carte">
+    <h2 class="resultats-titre">Recherche par établissement</h2>
+    <div class="groupe-input">
+      <label class="label">Choisir un établissement</label>
+      <select id="select-etablissement" class="input"></select>
+    </div>
+    <button type="button" class="bouton" onclick="rechercherParEtablissement()">
+      Rechercher
+    </button>
+    <div id="resultats-etablissement" style="margin-top:2rem;"></div>
+  </div>
+
+<script src="{{ url_for('static', filename='js/validations.js') }}"></script>
+{% endblock %}

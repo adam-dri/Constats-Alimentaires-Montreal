@@ -1,0 +1,26 @@
+{
+    "type": "object",
+    "required": ["username", "password", "nom", "prenom"],
+    "properties": {
+      "username": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 32,
+        "pattern": "^[a-zA-Z0-9_.-]+$"
+      },
+      "password": {
+        "type": "string",
+        "minLength": 8
+      },
+      "nom": {
+        "type": "string",
+        "minLength": 2
+      },
+      "prenom": {
+        "type": "string",
+        "minLength": 2
+      }
+    },
+    "additionalProperties": false
+  }
+  

@@ -1,0 +1,20 @@
+# Ne pas versionner la clé secrète
+env/.env
+
+# Ignorer les dossiers système du virtualenv
+env/bin/
+env/include/
+env/lib/
+env/lib64/
+env/pyvenv.cfg
+
+# Ignorer les caches Python
+env/__pycache__/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE et macOS
+.vscode/
+.idea/
+.DS_Store

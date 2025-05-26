@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}Résultats de recherche{% endblock %}
+
+{% block content %}
+<div class="carte">
+    <h2 class="resultats-titre">Résultats de la recherche</h2>
+
+    {% if contraventions %}
+        <table class="tableau">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Établissement</th>
+                    <th>Propriétaire</th>
+                    <th>Adresse</th>
+                    <th>Description</th>
+                    <th>Montant</th>
+                    <th>Catégorie</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for v in contraventions %}
+                <tr>
+                    <td>{{ v['date'] }}</td>
+                    <td>{{ v['etablissement'] }}</td>
+                    <td>{{ v['proprietaire'] }}</td>
+                    <td>{{ v['adresse'] }}</td>
+                    <td>{{ v['description'] }}</td>
+                    <td>{{ v['montant'] }}$</td>
+                    <td><span class="categorie">{{ v['categorie'] }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alerte-vide">
+            <p>Aucun résultat trouvé pour les critères spécifiés.</p>
+            <p>Veuillez élargir votre recherche ou vérifier les termes saisis.</p>
+        </div>
+    {% endif %}
+
+    <div style="margin-top: 2rem;">
+        <a href="{{ url_for('accueil') }}" class="bouton">
+            Effectuer une nouvelle recherche
+        </a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/validations.js') }}"></script>
+{% endblock %}

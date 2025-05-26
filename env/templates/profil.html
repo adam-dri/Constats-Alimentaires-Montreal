@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}Profil{% endblock %}
+
+{% block content %}
+<div class="carte">
+  <h2 class="resultats-titre">Mon profil</h2>
+
+  <p><strong>Nom d’utilisateur :</strong> {{ utilisateur.username }}</p>
+  <p><strong>Nom :</strong> {{ utilisateur.nom }}</p>
+  <p><strong>Prénom :</strong> {{ utilisateur.prenom }}</p>
+
+  {% if utilisateur.photo_profil %}
+    <p><strong>Photo de profil :</strong></p>
+    <img src="{{ url_for('photo_profil', nom_utilisateur=utilisateur.username) }}" alt="Photo" width="150">
+    {% else %}
+    <p><em>Aucune photo de profil enregistrée.</em></p>
+  {% endif %}
+
+  <hr>
+    <h3>Téléverser une photo de profil</h3>
+
+    <form method="POST" action="{{ url_for('televerser_photo') }}" enctype="multipart/form-data">
+    <input type="file" name="photo" accept=".jpg,.jpeg,.png" required>
+    <button type="submit">Envoyer</button>
+    </form>
+
+    {% if message %}
+    <p style="color: {{ couleur }}">{{ message }}</p>
+    {% endif %}
+
+</div>
+
+<script src="{{ url_for('static', filename='js/validations.js') }}"></script>
+{% endblock %}

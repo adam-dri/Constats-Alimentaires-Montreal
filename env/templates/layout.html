@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Contraventions{% endblock %} - Ville de Montréal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="conteneur">
+            <h1 class="titre-principal">Contraventions Alimentaires</h1>
+            <nav class="nav-principale">
+                <a href="{{ url_for('accueil') }}">Accueil</a>
+
+                {% if session.utilisateur %}
+                  <a href="{{ url_for('profil') }}">Profil</a>
+                  <a href="{{ url_for('etablissements_surveilles') }}">Modifier mes établissements surveillés</a>
+                  <a href="{{ url_for('deconnexion') }}">Déconnexion</a>
+                {% else %}
+                  <a href="{{ url_for('inscription') }}">Inscription</a>
+                  <a href="{{ url_for('connexion') }}">Connexion</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main class="conteneur">
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
