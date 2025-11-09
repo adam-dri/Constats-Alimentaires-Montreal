@@ -37,7 +37,7 @@ echo 'SECRET_KEY=VOTRE_CLE_ICI' >> Constats-Alimentaires-Montreal/env/.env
 python init_projet.py
 ```
 
-Cette commande télécharge les données de la Ville de Montréal et les importe dans la base SQLite (prend environ 2-3 minutes).
+Cette commande télécharge les données de la Ville de Montréal et les importe dans la base SQLite.
 
 **Vérifier l'import :**
 ```bash
